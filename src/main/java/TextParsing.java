@@ -15,7 +15,7 @@ public class TextParsing {
         System.out.println("합계 : "  + getSum(numbers));
     }
 
-    private int getSum(List<String> numbers) {
+    public int getSum(List<String> numbers) {
         int result = 0;
         for(String number : numbers){
             result += Integer.parseInt(number);
@@ -23,10 +23,10 @@ public class TextParsing {
         return result;
     }
 
-    private String getCustomToken(String inputString) {
+    public String getCustomToken(String inputString) {
         String result = "";
         if(inputString.contains(CUSTOM_TOKEN_PREFIX) && inputString.contains(CUSTOM_TOKEN_SUFFIX)){
-            result = (inputString.split(CUSTOM_TOKEN_SUFFIX)[0]).replace(CUSTOM_TOKEN_SUFFIX, "");
+            result = (inputString.split(CUSTOM_TOKEN_SUFFIX)[0]).split(CUSTOM_TOKEN_PREFIX)[1];
         }
         return result;
     }

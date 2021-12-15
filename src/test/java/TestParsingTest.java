@@ -8,8 +8,14 @@ public class TestParsingTest {
     void parseStringWithTokenizer(){
         TextParsing textParsing = new TextParsing();
 
-        Assertions.assertEquals(textParsing.parseStringWithTokenizer("0", ",|:").size() , 1);
-        Assertions.assertEquals(textParsing.parseStringWithTokenizer("1,2,3", ",|:").size() , 3);
-        Assertions.assertEquals(textParsing.parseStringWithTokenizer("1,2:3", ",|:").size() , 3);
+        Assertions.assertEquals(1, textParsing.parseStringWithTokenizer("0", ",|:").size());
+        Assertions.assertEquals(3, textParsing.parseStringWithTokenizer("1,2,3", ",|:").size() );
+        Assertions.assertEquals(3, textParsing.parseStringWithTokenizer("1,2:3", ",|:").size() );
+    }
+
+    @Test
+    void getCustomToken(){
+        TextParsing textParsing = new TextParsing();
+        Assertions.assertEquals("a", textParsing.getCustomToken("//a\n"));
     }
 }
