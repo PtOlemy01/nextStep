@@ -1,32 +1,46 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextParsing {
+    public static void main(String[] args) throws Exception{
+        TextParsing textParsing = new TextParsing();
 
-    final String CUSTOM_TOKEN_PREFIX = "//";
-    final String CUSTOM_TOKEN_SUFFIX = "\n";
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("입력하세요 : ");
+//        String inputString = scanner.nextLine();
 
-    public void stringParseMain(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("입력하세요 : ");
-        String inputString = scanner.next();
+        String inputString = "//;\n1;2;3";
 
-        List<String> numbers = parseStringWithTokenizer(inputString, ",|:|" + getCustomToken(inputString));
+        if(inputString == null || inputString.isEmpty()){
+            new RuntimeException("입력된 값이 없습니다.");
+        }
+
+        textParsing.stringParseMain(inputString);
+    }
+
+    public void stringParseMain(String inputString) throws Exception{
+
+        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(inputString);
+
+        List<String> numbers = new ArrayList<>();
+
+        if(m.find()){
+            String customToken = m.group(1);
+            numbers = Arrays.asList(m.group(2).split(customToken));
+        }else{
+            numbers = parseStringWithTokenizer(inputString, ",|:");
+        }
 
         System.out.println("합계 : "  + getSum(numbers));
     }
 
-    public int getSum(List<String> numbers) {
+    public int getSum(List<String> numbers) throws Exception{
         int result = 0;
         for(String number : numbers){
+            if(Integer.parseInt(number) < 0 )
+                new RuntimeException("음수입니다.");
             result += Integer.parseInt(number);
-        }
-        return result;
-    }
-
-    public String getCustomToken(String inputString) {
-        String result = "";
-        if(inputString.contains(CUSTOM_TOKEN_PREFIX) && inputString.contains(CUSTOM_TOKEN_SUFFIX)){
-            result = (inputString.split(CUSTOM_TOKEN_SUFFIX)[0]).split(CUSTOM_TOKEN_PREFIX)[1];
         }
         return result;
     }
