@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
     private StringCalculator cal;
@@ -38,4 +39,10 @@ public class StringCalculatorTest {
     public void add_custom_구분자() throws Exception{
         assertEquals(6, cal.add("//;\n1;2;3"));
     }
+
+    @Test
+    public void add_negative() {
+        assertThrows(RuntimeException.class, () -> cal.add("-1,2,3"));
+    }
+
 }
