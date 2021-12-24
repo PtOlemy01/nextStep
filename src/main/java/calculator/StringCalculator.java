@@ -9,7 +9,7 @@ public class StringCalculator {
     }
 
     private String[] split(String text) {
-        return text.split(",");
+        return text.split(",|:");
     }
 
     private boolean isBlank(String text) {
